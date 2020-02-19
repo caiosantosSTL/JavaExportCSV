@@ -8,7 +8,7 @@ public class Principia {
 		
 		Conexao conx = new Conexao();
 		
-		conx.Select();
+		conx.Select2();
 		
 		//conx.Conect();
 		//conx.Select();

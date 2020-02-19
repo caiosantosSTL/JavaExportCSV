@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,8 @@ public class Conexao {
 	String idstr;
 	String[] tetx =new String[8];
 	int i= 0;
+	
+	ArrayList<String> info = new ArrayList<>();
 
 	/// ******************************************************** Conex
 	public Connection Conect() {
@@ -107,16 +110,68 @@ public class Conexao {
 			// TODO: handle exception
 		}
 
-		
-
-
-
 
 		// ===============
 
 		System.out.println("Vim printar txt");
 
 	}//end metodo select
+	
+	/// ******************************************************** Select 2
+	public void Select2() throws IOException {
+		
+		String sql = "SELECT id, nome, color FROM TabelaX";
+		
+		  FileWriter fileWriter = new
+		  FileWriter("/Users/Roberto/Desktop/txtxtx/JavaTXT/teste316.csv");
+		  
+			try {
+
+				Connection conn = this.Conect();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				// loop through the result set
+				while (rs.next()) {
+
+					idx = rs.getInt("id");
+					nomx = rs.getString("nome");
+					colox = rs.getString("color");
+					idstr = Integer.toString(idx);
+					String hh = idstr + " , " + nomx + " , " + colox + " \n";
+					info.add(hh);
+
+					System.out.println(rs.getInt("id") + " , " + rs.getString("nome") + 
+							" , " + rs.getString("color"));
+				
+					
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+
+			}
+			
+			//88888888888
+			
+			try {
+				Connection conn = this.Conect();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				for (int i = 0; rs.next(); i++) {
+					System.out.println("** "+info.get(i));// aqui 
+					  fileWriter.write(info.get(i));
+
+				}
+				  fileWriter.close();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			
+		
+	}
 
 	/// ******************************************************** Fechar db
 	public void Fechar() {
